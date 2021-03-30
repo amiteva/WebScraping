@@ -16,13 +16,16 @@ public class WebScrape {
         String output = "";
 
         try {
+            //Get the website that shows the results of the search
             Document doc = Jsoup.connect("https://www.basketball-reference.com/search/search.fcgi").data("search", input).get();
             Elements searchresults = doc.getElementsByClass("search-item");
 
+            //If there are 0 results from the search
             if(searchresults.size() == 0) {
                 return "The player is not in our database";
             }
 
+            //Go through all of the displayed players
             for(Element result : searchresults) {
                 link = result.getElementsByClass("search-item-url").text();
                 break; //we always take the first result
@@ -35,9 +38,12 @@ public class WebScrape {
         }
 
         try {
+            //Connect to the player's website and get the section "Per 36 Minutes"
             Document doc = Jsoup.connect(link).get();
             Element table = doc.getElementById("all_per_minute");
 
+            //Because of the structure of the website, we cannot directly obtain the element that we need (by class or id),
+            //so instead, I create a new document that contains only our wanted table and extract the information from there
             Node child = table.childNode(4);
             String s = child.toString();
             String subs = s.substring(6, s.length()-4);
@@ -47,6 +53,7 @@ public class WebScrape {
             Element t = table1.getElementsByTag("tbody").get(0);
             Elements rows =  t.getElementsByTag("tr");
 
+            //Go through all of the rows of the table and print the wanted data
             for(Element row : rows) {
                 Elements seasons = row.getElementsByAttributeValue("data-stat","season");
                 Elements points = row.getElementsByAttributeValue("data-stat","fg3a_per_mp");

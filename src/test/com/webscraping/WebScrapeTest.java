@@ -11,6 +11,7 @@ class WebScrapeTest {
     void test1() {
         assertEquals("2018-19 8.0\n2019-20 9.5\n2020-21 8.2\n", WebScrape.get3PA("Luka Donćić"));
     }
+
     @Test
     @DisplayName("Player not found")
     void test2() {
