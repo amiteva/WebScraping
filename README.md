@@ -16,4 +16,4 @@ Luka Donćić
 ```
 This Java web scraper was built with Maven and implemented using the Jsoup library.
 ### Automated Testing
-The program also includes simple automated tests using the JUnit Testing Framework.
+The project also includes simple automated tests using the JUnit Testing Framework.
